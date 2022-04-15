@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  height: 100vh;
+  background: #262626;
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: #34d399;
+}
+
+.backgroundShapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(15rem + 20vw);
+  z-index: -1;
+}
+
+.intro {
+  width: min(100% - 8rem, 600px);
+  margin-inline: auto;
+  padding-top: 18rem;
+}
+
+.heading span {
+  font-size: 3.2rem;
+  font-weight: 600;
+}
+.heading h1 {
+  font-size: 6.4rem;
+  font-weight: 600;
+  color: #34d399;
+}
+@media screen and (max-width: 600px) {
+  .heading span {
+    font-size: 2.15rem;
+  }
+  .heading h1 {
+    font-size: 5rem;
+  }
+}
+
+/* About me */
+.aboutme {
+  padding: 2.5rem;
+  margin-top: 2rem;
+  width: fit-content;
+  border-radius: 1.5rem;
+  background-color: #2e2e2e;
+}
+.aboutme p {
+  font-size: 3.2rem;
+  width: max-content;
+}
+@media screen and (max-width: 600px) {
+  .aboutme p {
+    font-size: 2rem;
+  }
+}
+
+img.me {
+  height: clamp(10vw, 40%, 400px);
+  position: absolute;
+  z-index: -1;
+  bottom: 2rem;
+  right: 2rem;
+}
+@media screen and (max-width: 600px) {
+  img.me {
+    height: clamp(10vw, 30%, 300px);
+  }
+}
+@media screen and (max-height: 650px) {
+  img.me {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

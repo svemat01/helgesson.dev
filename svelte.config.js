@@ -15,9 +15,7 @@ const config = {
 
     kit: {
         adapter: adapter(),
-        preprocess: {
-            default: true,
-        },
+        prerender: { default: true },
     },
 };
 

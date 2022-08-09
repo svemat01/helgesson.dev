@@ -1,4 +1,13 @@
-<h1>SvelteKit Template</h1>
-<p>
-    Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-</p>
+<script lang="ts">
+    import EdgeGraphics from '$lib/components/EdgeGraphics.svelte';
+    import Header from '$lib/components/Header.svelte';
+    import Sites from '$lib/components/Sites.svelte';
+    import Wrapper from '$lib/components/Wrapper.svelte';
+</script>
+
+<EdgeGraphics />
+
+<Wrapper>
+    <Header />
+    <Sites />
+</Wrapper>

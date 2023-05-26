@@ -1,36 +1,17 @@
 {
-    "name": "helgesson-dev",
-    "version": "0.0.1",
-    "scripts": {
-        "dev": "vite dev",
-        "build": "vite build",
-        "package": "svelte-kit package",
-        "preview": "vite preview",
-        "check": "svelte-check --tsconfig ./tsconfig.json",
-        "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-        "lint": "prettier --check --plugin-search-dir=. . && eslint .",
-        "format": "prettier --write --plugin-search-dir=. .",
-        "fix": "prettier --write --plugin-search-dir=. . && eslint . --fix"
-    },
-    "devDependencies": {
-        "@sveltejs/adapter-static": "next",
-        "@sveltejs/kit": "next",
-        "@typescript-eslint/eslint-plugin": "^5.33.0",
-        "@typescript-eslint/parser": "^5.33.0",
-        "eslint": "^8.21.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-lvksh": "^1.4.1",
-        "eslint-plugin-svelte3": "^4.0.0",
-        "prettier": "^2.7.1",
-        "prettier-plugin-svelte": "^2.7.0",
-        "sass": "^1.54.3",
-        "svelte": "^3.49.0",
-        "svelte-check": "^2.8.0",
-        "svelte-css-vars": "^0.0.3",
-        "svelte-preprocess": "^4.10.7",
-        "tslib": "^2.4.0",
-        "typescript": "^4.7.4",
-        "vite": "^3.0.4"
-    },
-    "type": "module"
+  "name": "",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^0.19.4",
+    "astro": "^2.5.5",
+    "sass": "^1.62.1"
+  }
 }

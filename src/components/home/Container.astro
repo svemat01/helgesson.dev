@@ -1,0 +1,44 @@
+---
+interface Props {
+    pre?: string;
+    main?: string;
+    post?: string;
+    href: string
+    newTab?: boolean;
+}
+
+const { pre, main, post, href, newTab } = Astro.props;
+---
+
+<a class="container" href={href} target={href?.startsWith('http') ? '_blank' : undefined}>
+    <p class="title"><span>{pre}</span>{main}<span>{post}</span></p>
+    <p class="description"><slot /></p>
+</a>
+
+<style lang="scss">
+    .container {
+        background-color: $gray-350;
+        border-radius: 0.5rem;
+        padding: 2rem;
+
+        text-align: center;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 2.5rem;
+        font-weight: 500;
+
+        span {
+            color: $green;
+        }
+    }
+
+    .description {
+        font-size: 1.8rem;
+        font-weight: 300;
+        color: $gray-800;
+
+        margin-top: 0.6rem;
+    }
+</style>

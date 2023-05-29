@@ -1,0 +1,121 @@
+---
+title: Joining in on the DevBlog train
+description: Simple right... or is it? Let's find out!
+author: Jakob Helgesson
+date: 2022-04-21
+tags: []
+draft: false
+---
+import Note from '../../components/blog/Note.astro'
+
+<Note>This post was written for an older version of this blog so some details may be outdated. </Note>
+<br/>
+
+We developers sure do like our blogs don't we? Or at least many of us do.
+
+They are a great source to find out how to use something or just learn about some new cool thing. It's awesome right?
+
+So of course I had to join in on the DevBlog train just like my two very good friends, luc and antony.
+I would definitely recommend you to check out their blogs after finishing this article!
+
+But who am I then? I have already introduced my friends so now it's my turn!
+
+## Me! 👋
+
+I'm Jakob Helgesson and I am 17 year old super stack developer.
+
+Super stack developer? Yes! It is likely a thing that you have never heard of before, I wouldn't be surprised. The idea is that a super stack developer can build the backend, the frontend but also deploy and make sure the stack is scalable. We work with a little of everything I guess you could say :)
+
+But enough of me, let's get cracking on why and how I built this blog.
+
+## Why? 🤔
+
+We already went over this part a bit before, I like joining in on "new" trends and fun ideas in my friend/dev group ([Devtalk](https://devtalk.dev)).
+
+I also like sharing my thoughts but also help teach people on new cool things so we're gonna be exploring new cool stuff together here in the future which I am greatly looking forward to!
+
+## How we got here
+
+The journey here was kinda special but very fun!
+
+When creating a blog in todays developer world there are a huge amount of options. At first I didn't know what to go with [Astro](https://astro.build) per luc's recommendation.
+However as you may or may not notice, this website is no longer built in Astro, but more on what I did instead later.
+What I did know was that I wanted a statically generated website so any SSR _(or Server Side Rendering)_ based systems was of the table.
+
+### SSG vs SSR
+
+I mentioned both SSG and SSR but what are they?
+
+#### Server Side Rendering
+
+A SSR webpage is completely or partially rendered on a server when a user requests the website.
+This is often used for more personal websites like social media.
+
+The nice thing with SSR is that the end user gets a pre rendered site so unlike SSG the browser doesn't have to update the website to such a large extent.
+This means we can get a very customized page without having to use javascript on the client.
+
+So what are the drawbacks of SSR? Well for starters, the web server now has to do small to big calculations on each website request which of course is more resource expensive.
+And secondly it's more expensive to host a SSR:ed website as I will get into in the SSG section next.
+
+#### Static Site Generation
+
+Kinda like SSR we render the webpage on the server, however this time we only do it once, specifically on build time. At build time our server will look at our code/content and render it into the simple HTML, CSS and JS. This allows us to deploy the website to free services such as [Vercel](https://vercel.com) and [Netlify](https://netlify.com) or **Signal** 😜 which I will be talking about in a later blog post.
+
+So what's the drawback here then? The client now has to pickup the work that the server did in SSR and render it to the user. However it is often cheaper or even free for the owner of the site to host.
+
+#### Choosing between SSG and SSR
+
+Choosing between SSG and SSR _(or others methods)_ is a bit of a tricky one. It depends on the project and the project's needs.
+
+For me personally I think SSG is the best choice as it's the easiest in my case to use.
+
+### Astro
+
+What is [Astro](https://astro.build)? Astro is an SSG _(or Static Site Generator)_ which has the goal of outputting as little as possible javascript, in some cases even none.
+
+Astro is really awesome in the way it allows you to combine multiple different frameworks in the same projects.
+
+For the first couple months this project was built with Astro, but since it is still very new on the block, it has big changes coming to it all the time, which don't get me wrong is really awesome, but it came with a few too many breaking changes after a while. And at some point there was to much for me to want to handle, so I had to choose between starting over with a newer version of Astro or looking into something else.
+
+After my amazing time with the super loving community over at the [Astro discord](https://astro.build/chat) where I even ended up winning a community award for being helpful in the support channels and contributing to the project, I was quite sad about leaving Astro but I really wanted to try something new.
+
+Astro is still a very interesting project that I will continue to keep my eyes on and will probably go back to in the future when it's more mature. But now I had to choose what I was going to work with instead.
+
+
+### SvelteKit and Svelte
+
+I ended up going with SvelteKit using the static adapter but the choice was very close with [Next.js](https://nextjs.org) and React but SvelteKit seemed to have an easier markdown setup for me.
+
+I honestly think that Svelte has a great potential of becoming the best framework but that's a topic for another time 🤭
+
+#### So what is SvelteKit?
+
+Well SvelteKit is kinda like how Next.js is for React but for Svelte. It allows you to use different adapters to build your website. It allows everything from SSR to SSG, but I chose the static adapter to prerender my pages as normal HTML, CSS and JS like I talked about before.
+
+#### What did I end up using?
+
+So what did I end up using to make this work other than SvelteKit itself? Good question, get ready cuz here it comes!
+
+- **[SvelteKit](https://sveltekit.org)** together with **[Svelte](https://svelte.dev)**
+- **[MdSvex](https://mdsvex.pngwn.io/)** Svelte in markdown, together with some **[remark](https://github.com/remarkjs/remark)** and **[rehype](https://github.com/rehypejs/rehype)** plugins
+  - **[remark-gfm](https://github.com/remarkjs/remark-gfm)** Support github flavored markdown
+  - **[remark-sectionize](https://github.com/jake-low/remark-sectionize)** Group headings and paragraphs together as sections
+  - **[remark-containers](https://github.com/Nevenall/remark-containers)** Custom containers for warnings and etc
+  - **[rehype-slug](https://github.com/rehypejs/rehype-slug)** Add id's to headings for linking
+  - **[rehype-autolink-headings](https://github.com/rehypejs/rehype-autolink-headings)** Make headers link to themself
+- **[Typescript](https://www.typescriptlang.org/)** and **[SCSS](https://sass-lang.com/)** to make it easier to work with
+- **Fonts**
+  - [Roboto](https://fonts.google.com/specimen/Roboto)
+  - [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono)
+
+## Where we are now
+
+Well here I am, a couple of months later and I'm still working on this blog :D
+
+The journey to this point has been amazing by getting to learn both new Languages and technologies, but also taking part of the communities surrounding these things. This site has so much more coming for it and hopefully many more blog posts will be written in the future.
+
+Hopefully you'll stay with me and follow me thru out the amazing career I have laying in the future, which I can't wait to take part of. I hope you enjoy the journey and if you have any questions or comments feel free to reach out to me via [E-Mail (jakob@helgesson.dev)](mailto:jakob@helgesson.dev) or other contact information available on my [portfolio (jakobhelgesson.com)](https://jakobhelgesson.com).
+
+Thanks for reading! You are awesome ❤️
+
+~ Jakob Helgesson

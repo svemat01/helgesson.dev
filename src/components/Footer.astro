@@ -1,0 +1,24 @@
+---
+import Brand from "./Brand.astro";
+---
+
+<footer>
+    <div/>
+    <Brand />
+</footer>
+
+<style lang="scss">
+    footer {
+        margin-top: auto;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr;
+
+        padding: 1.5rem 2rem;
+        background-color: $gray-200;
+
+        :global(.brand) {
+            justify-self: end;
+        }
+    }
+</style>

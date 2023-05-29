@@ -1,0 +1,46 @@
+---
+export interface Props {
+    description: string;
+}
+
+const { description } = Astro.props as Props;
+---
+
+<span>
+    <slot />
+    <span class="description">{description}</span>
+</span>
+
+
+
+<style lang="scss">
+    span {
+        color: $blue;
+
+        position: relative;
+        cursor: pointer;
+
+
+        .description {
+            visibility: hidden;
+
+            background: $gray-300;
+            color: $gray-800;
+            border-radius: 8px;
+
+            padding: 1rem;
+            width: 15rem;
+
+            text-align: center;
+
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            margin-left: -7.5rem;
+        }
+
+        &:hover .description {
+            visibility: visible;
+        }
+    }
+</style>

@@ -1,0 +1,74 @@
+---
+title: Laptop audio on Linux
+description: Setting up the X1 Carbon with Dolby-ish surround sound
+author: Jakob Helgesson
+date: Dec 26 2022
+tags: []
+draft: false
+---
+
+Recently having received my new X1 Carbon laptop and of course installing Linux on it,
+I ended up rather disappointed with the sound situation versus it running on windows.
+
+**But before getting any sound output at all, I had to start with installing the package called** `sof-firmware`
+
+## The issue
+
+As it turns out, on Windows, Lenovo has preinstalled various sound modifications
+such as Dolby Atmos to improve the speakers performance. And this is really not something uncommon for device manufacturers to do.
+
+However, on Linux these modifications are often not available such as in my case.
+This results in at least my opinion a rather poor sound experience.
+
+Me being me, I decided to look further into this and see if I could get something better working.
+
+## Equalizers 
+
+I started out by installing [`easyeffects`](https://github.com/wwmm/easyeffects).
+I came across [a set of presets ](https://github.com/JackHack96/EasyEffects-Presets) made by [JackHack96](https://github.com/JackHack96)
+
+I tried out a few of them and while they did improve the sound, I still felt like something was missing.
+I didn't get the more full sound I was looking for. So I continued my search.
+
+## The solution
+
+I came across [this post](https://www.reddit.com/r/thinkpad/comments/q5pt38/x1_extreme_gen_4_dolby_atmos_setup_for_linux/) on reddit.
+It describes the usage of a module in EasyEffects called `Convolver`. This module allows you to load a custom impulse response file.
+
+By recording the modifications made by the Dolby Atmos software on Windows, [u/happinessmachine](https://www.reddit.com/user/happinessmachine/)
+was able to create a custom impulse response file that can be used to replicate the sound modifications made by Dolby Atmos.
+
+After installing the `Convolver` plugin and loading the impulse response file, I was finally able to get the sound I was looking for.
+I have to say that I am really impressed with the sound quality now. It's not perfect, but it's a lot better than before.
+
+I also tried making a custom impulse response file myself, but my attempt was not successful.
+The steps I followed came from [this post](https://stackoverflow.com/questions/27122564/which-version-of-linux-has-support-for-dolby-advanced-audio-v2)
+over on stackoverflow which [u/happinessmachine](https://www.reddit.com/user/happinessmachine/) also linked to in his post.
+
+### The Files
+
+In the event that the reddit post is removed, here is the file link supplied in the post:
+
+https://www.mediafire.com/file/qt9znutry7fgzk7/dolby.zip/file
+
+I've also decided to upload the files to my own server if MediaFire would take it down, so here is the link to that:
+
+https://cdn.helgesson.dev/assets/blog/dolby.zip
+
+## Disable for headphones
+
+The Convolver effect is applied to all audio output. This means that if you are using headphones, you will get the same effect.
+Due to the effects used to create the sound for speakers, it makes the sound rather weird when using headphones.
+
+EasyEffects has a solution for this tho. By saving our settings as a preset, we can then enable the preset only when we are using speakers.
+Doing so manually would be a bit tedious so EasyEffects has a feature called `Presets Autoloading` which allows you to
+choose a preset based on the audio output device.
+
+By also making a empty preset we can then tell EasyEffects to use the empty preset when we are using headphones.
+And use the Dolby Atmos preset when we are using speakers.
+
+## Conclusion
+
+I am very happy with how the sound turned out and I hope this post can help others who are looking for a similar solution.
+
+I also hope that Lenovo will start to include these modifications on Linux as well. I think it would be a great addition to the Linux experience.

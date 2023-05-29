@@ -23,10 +23,13 @@ html {
 
 body {
     font-family: 'JetBrains Mono', Arial;
+    // font-family: 'Inter', Arial;
 
     background: $gray-100;
     color: $gray-900;
-    padding-bottom: 10rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 li {

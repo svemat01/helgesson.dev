@@ -24,6 +24,7 @@ const { title, description } = Astro.props as Props;
 
         <link rel="shortcut icon" href="/favicon.png" />
         <title>{`${title} | Helgesson.dev`}</title>
+        <slot name="head" />
     </head>
 
     <body>

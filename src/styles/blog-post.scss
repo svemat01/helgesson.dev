@@ -1,0 +1,223 @@
+article {
+    font-size: var(--font-text);
+
+    display: flex;
+    gap: 1.25rem;
+    flex-direction: column;
+
+    overflow-wrap: anywhere;
+    width: 100%;
+
+    section {
+        display: flex;
+        gap: 1.25rem;
+        flex-direction: column;
+    }
+
+    // Headings
+    h2 {
+        font-size: var(--font-heading);
+        font-weight: 600;
+
+        .icon-link {
+            &::before {
+                text-align: right;
+
+                content: "#";
+
+                position: initial;
+
+                margin-right: 0.6rem;
+
+                color: $green;
+            }
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+        }
+    }
+
+    h3 {
+        font-size: var(--font-heading);
+        font-weight: 600;
+
+        .icon-link {
+            &::before {
+                text-align: right;
+                letter-spacing: 1px;
+
+                content: "##";
+
+                position: initial;
+
+                margin-right: 0.6rem;
+
+                color: $green;
+            }
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+        }
+    }
+
+    h4 {
+        font-size: var(--font-heading-small);
+        font-weight: 600;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 1.76rem;
+    }
+
+    // Lists
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    ul,
+    li {
+        list-style-type: disc;
+
+        margin-left: 1rem;
+    }
+
+    p > a {
+        color: $green;
+    }
+
+    p {
+        line-height: 2.4rem;
+
+        text-align: justify;
+    }
+
+    blockquote {
+        border-radius: 0.5rem;
+        border-left: 0.6rem solid $green;
+
+        padding: 1rem;
+        padding-left: 2rem;
+
+        background-color: $gray-300;
+
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    hr {
+        border: 0;
+        border-top: 0.25rem solid $gray-800;
+    }
+
+    img:not(.no-style) {
+        border-radius: 1rem;
+        border: 0.5rem solid $green;
+        max-width: 100%;
+    }
+
+    pre {
+        border-radius: 0.5rem;
+
+        background-color: $gray-300 !important;
+
+        overflow-x: auto;
+
+        code,
+        code * {
+            font-size: var(--font-text);
+            font-family: "JetBrains Mono", monospace !important;
+        }
+
+        code {
+            margin: 1.4rem;
+            display: inline-block
+        }
+    }
+
+    :not(pre) > code {
+        display: inline-block;
+
+        background-color: #1e1e1e;
+
+        padding: 0.4rem;
+
+        border-radius: 0.75rem;
+    }
+
+    table {
+        background-color: $gray-200;
+        color: $gray-900;
+
+        th {
+            font-size: var(--font-text);
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        td {
+            font-size: var(--font-text);
+            padding-right: 1.7rem;
+        }
+
+        & {
+            border: 0.3rem solid $gray-300;
+            border-radius: 1rem;
+            border-spacing: 0.2rem;
+
+            padding-bottom: 0.1rem;
+
+            td {
+                // border: 2px solid $gray-800;
+                padding: 10px;
+            }
+
+            thead > tr:last-child > th {
+                border-bottom: 0.3rem solid $gray-300;
+            }
+
+            tbody {
+                // Make the corners of the table rows rounded
+                tr {
+                    & > td {
+                        border: 0;
+                        border-right: 0.3rem solid $gray-300;
+                    }
+
+                    &:first-child > td {
+                        &:first-child {
+                            border-top-left-radius: 0.5rem;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius: 0.5rem;
+                        }
+                    }
+
+                    &:last-child > td {
+                        &:first-child {
+                            border-bottom-left-radius: 0.5rem;
+                        }
+
+                        &:last-child {
+                            border-bottom-right-radius: 0.5rem;
+                        }
+                    }
+
+                    & > td:last-child {
+                        border: 0;
+                    }
+                }
+            }
+        }
+    }
+}

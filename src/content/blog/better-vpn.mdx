@@ -1,0 +1,178 @@
+---
+title: Tailscale, a better VPN?
+description: Let's find out what Tailscale is and how it works!
+author: Jakob Helgesson
+date: 2022-05-05
+tags: []
+draft: false
+---
+import Note from "../../components/blog/Note.astro";
+
+First of all, I am not sponsored or endorsed by Tailscale (hit me up tho Tailscale 😜). However it is really awesome and I plan to make you feel the same today.
+
+Unlike most other VPNs, Tailscale is not used to access the global internet _(or at least usually, more on that later)_. Instead it is used to create your own mesh network like your own little LAN but globally accessible. If you have ever used LogMeIn Hamachi to play games or the like with your friends, you will probably know what I'm talking about.
+
+For me the most amazing thing about Tailscale is how it is even able to work behind firewalls _(Unless tailscale is specifically blocked)_. This means that you could access a device that normally wouldn't allow vpn hosting as it would be blocked by the firewall. So yes this finally means you could hide a server at your school, however I do not condone it.
+
+Let's go thru how Tailscale is made, basic install/use and how I am using it in my daily life.
+
+## How is Tailscale built?
+
+Tailscale is basically built upon wireguard, an amazing protocol/technology for VPNs. By Tailscale building upon this, we get the amazing speeds and latency that wireguard brings to the table.
+
+How Tailscale works on a deeper level is quite a large but however interesting topic. And it seems like the people over at Tailscale agrees, so they decided to make a [blog post](https://tailscale.com/blog/how-tailscale-works/) describing how Tailscale works. I would really recommend reading it if you are more interested in the deeper levels.
+
+But of course I will go thru a bit more of an simplified version of that blog post.
+
+So essentially Tailscale is built upon two central systems/planes.
+
+-   The coordination service
+-   The DERP network
+
+### The coordination service
+
+Most of the data that travels thru Tailscale is actually getting sent via peer to peer networks that the coordination service helps administer and setup.
+
+This has the following main functionalities.
+
+-   Log In
+-   Public key box, stores all the public encryption keys for the nodes to be able to communicate.
+-   Configure ACLs (Access Control Lists), access settings for your tailnet.
+
+The coordination server is very light which allows Tailscale to be able to offer it with a free plan without going bankrupt. Oh yeah, did I forgot to mention that the basic plan is **free** forever and is most likely more than most people need. It's awesome!
+
+### The DERP network
+
+I talked about how Tailscale usually operates using peer to peer connections, this is done by various means of NAT transversal, however when this isn't possible they have built up a network called the DERP network. This network works as a relay, basically your device connects to it and says I wanna go to my second device and it just sends forward the data. Of course this data has been encrypted and Tailscale can't actually see the data.
+
+### Tailscale IPs
+
+The system they came up with is in my opinion a really cool way on how we can _"abuse"_ the reserved IPs.
+
+Each tailscale device get's their own Tailscale IP. However to avoid the IP collection with any other devices on your normal or the global network they decided to use the IP space 100.x.y.z to avoid any collisions.
+
+The 100.x.y.z space is normally reserved for the CGNAT _(Carrier Grade NAT)_. The CGNAT is a address space that is used between/within ISPs, which means these ips are unused for private networks, this makes it a perfect space for Tailscale to use.
+
+## Installing Tailscale
+
+Let's get started by installing tailscale on your computer so we can play around with it.
+
+Since installation instructions can sometimes change I recommend you to instead visit [their download page](https://tailscale.com/download/). They have a handy installation script at the page I linked to, but if you are on linux, your package manager might already have tailscale added, but your result may vary.
+
+For me _(I use Arch btw)_ it was as simple as telling pacman to install tailscale :)
+
+```shell
+sudo pacman -S tailscale
+```
+
+## Usage
+
+As I previously stated, I am an arch linux user so therefore I am going to go thru how this works on Linux. For other OS's, please refer to [Tailscale's documentation](https://tailscale.com/kb/).
+
+<Note>
+On Linux, you sometimes have to manually enable the daemon for tailscale, called `tailscaled`. You will be told if such action is needed when trying to use it.
+
+Normally this is done via systemd, but this may vary depending on your circumstances. In the case of systemd, this is how it's done.
+
+```shell
+$ sudo systemctl enable tailscaled
+$ sudo systemctl start tailscaled
+```
+
+</Note>
+
+We are going to go thru the following.
+
+-   Connecting to the network
+-   Show other devices on the network
+-   Advertise exit node
+
+### Setting it up
+
+The steps were going to take are
+
+-   Creating an account
+-   Connecting to the network
+
+#### Sign Up
+
+Before we can connect to the network we need to create an account. Either hop over to [the sign up page here](https://login.tailscale.com/start) or find the link on their website yourself :)
+
+#### Connecting to the network
+
+To connect your device to your tailnet, you have to first login and pair it with your account. This is extremely simple, just follow the steps below which will give you a link you should open in your preferred web browser.
+
+```shell
+$ sudo tailscale up
+
+https://login.tailscale.com/a/xxxxxxxxxxx
+```
+
+After you have opened the link, you will be asked to login using the method you used for signing up.
+
+Following these steps should have left your device authenticated to you tailnet, congrats! Now you can add more devices to play around with.
+
+### Showing your devices
+
+Now when we have connected a couple of devices to our tailnet, we can check them and see what their Tailscale IPs are.
+
+```shell
+$ tailscale status
+
+100.23.13.60   my-first-computer          jakob.helgesson@ linux   -
+100.102.40.23  my-second-computer         jakob.helgesson@ linux   -
+```
+
+### Exit Nodes
+
+Exit nodes makes tailscale sort of act like the traditional VPN. Using an exit node you still have access to all your Tailscale devices but all your other traffic will instead be routed to the exit node.
+
+Exit nodes can be really useful when you are for example trying to access a national tv service while your on vacation. Or just want secure your connection on a public wifi network.
+
+To be able to use exit nodes, the device that should be acting as such firstly needs to request to be allowed that. This is done with a small modification to the startup command.
+
+```shell
+$ tailscale up --advertise-exit-node
+```
+
+Then you should open up the [admin panel](https://login.tailscale.com/admin/machines). The node will now have a little tag saying `Exit Node (i)`.
+
+![Image of node in admin panel](https://cdn.discordapp.com/attachments/778235420549840906/970777749214076989/allow-exit-node.png)
+
+Click on the three dots, `Edit route settings` and then click on `Use as exit node`
+
+Now on the device you want to connect to the exit node with, you can use the `tailscale up` command.
+
+```shell
+$ tailscale up --exit-node "(IP or base name)"
+```
+
+To stop using an exit node, run the same command but now with an empty string.
+
+```shell
+$ tailscale up --exit-node ""
+```
+
+---
+
+That concludes the basics of how tailscale works. With the setup above, you should now have access to all devices on your tailnet as if you were on the same LAN.
+
+If you wanna learn more about how to use Tailscale, then I would recommend you to look at their [documentation](https://tailscale.com/kb/). But for now let's explore how I use Tailscale.
+
+## How I use Tailscale
+
+Tailscale has been such an amazing tool for me in so many ways.
+
+I have it deployed on all my servers and personal devices. That includes my phone, laptop and my desktop.
+
+Having Tailscale on all my servers allows me to only expose the ports that are specifically needed, no more ssh left open and no more annoying traditional vpn on each server to keep things private.
+
+Meanwhile on my personal devices, I use one raspberry pi at home and one vm in a datacenter as exit nodes, this means I have a way to access my safe home network while away but also access the network of my vm if I need a vpn that is a bit more anonymous.
+
+## Final points
+
+I really hope you enjoyed this short getting started / me sharing my experience with tailscale. If you have any further questions, you can reach out to me via [E-Mail (jakob@helgesson.dev)](mailto:jakob@helgesson.dev) or other contact information available on my [portfolio (jakobhelgesson.com)](https://jakobhelgesson.com).
+
+And as always, thank you 100x for spending some time with me and reading this ❤️
+
+~ Jakob Helgesson

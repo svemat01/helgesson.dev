@@ -1,0 +1,89 @@
+---
+import '../../styles/blog-post.scss'
+import { CollectionEntry, getCollection } from "astro:content";
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { readableDate } from '../../utils/date';
+
+export async function getStaticPaths() {
+    let posts = await getCollection("blog");
+    
+    if (import.meta.env.PROD) {
+        posts = posts.filter(post => !post.data.draft);
+    }
+
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: post,
+    }));
+}
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+
+const { Content, headings } = await post.render();
+// console.log({headings});
+
+const formattedDate = readableDate(post.data.date);
+---
+<BlogLayout title={post.data.title}><div class="heading">
+    <h1>{post.data.title}</h1>
+    <p class="description">{post.data.description}</p>
+    <p class="data">{post.data.author} <span class="brand">/</span> {formattedDate}</p>
+    <p class="reading">📖 7 min read</p>
+</div>
+    <article>
+        <Content components={{}} />
+    </article>
+</BlogLayout>
+
+<style lang="scss">
+    .heading {
+        text-align: center;
+
+        margin-bottom: 4rem;
+
+        h1 {
+            font-size: var(--font-heading-big);
+            font-weight: 500;
+        }
+
+        .description {
+            font-size: var(--font-heading);
+            color: $gray-800;
+        }
+
+        .data {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+
+            margin-top: 0.4rem;
+
+            font-size: var(--font-heading-small);
+            font-weight: 300;
+            color: $gray-800;
+
+            @media screen and (max-width: $breakpoint-sm) {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .brand {
+                color: $green;
+
+                @media screen and (max-width: $breakpoint-sm) {
+                    display: none;
+                }
+            }
+        }
+
+        .reading {
+            font-size: var(--font-heading-small);
+            font-weight: 300;
+
+            color: $gray-800;
+
+            margin-top: 0.8rem;
+        }
+    }
+</style>

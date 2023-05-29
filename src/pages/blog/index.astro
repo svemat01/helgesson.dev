@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import PostPreview from "../../components/blog/PostPreview.astro";
+
+let posts = await getCollection("blog");
+
+if (import.meta.env.PROD) {
+    posts = posts.filter((post) => !post.data.draft);
+}
+posts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BlogLayout title="Blog">
+    <div class="posts">
+        {
+            posts.map(async (post) => {
+				const {remarkPluginFrontmatter} = await post.render()
+                return (
+                    <PostPreview
+                        author={post.data.author}
+                        date={post.data.date}
+                        title={post.data.title}
+                        slug={post.slug}
+                        description={post.data.description}
+						minutesRead={remarkPluginFrontmatter.minutesRead}
+						draft={post.data.draft}
+                    />
+                );
+            })
+        }
+    </div>
+</BlogLayout>
+
+<style lang="scss">
+    .posts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 400px);
+        grid-template-rows: repeat(auto-fit, 200px);
+        grid-gap: 3rem;
+        justify-content: center;
+    }
+</style>

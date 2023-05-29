@@ -1,0 +1,45 @@
+---
+title: Trying Astro V1.0
+description: Let's explore the basics of Astro together!
+author: Jakob Helgesson
+date: Aug 12 2022
+tags: []
+draft: true
+---
+
+import ToolTip from "../../components/blog/ToolTip.astro";
+
+First of all I just want to congratulate the entire [Astro](https://astro.build) community for all their hard work and dedication to the project and for finally reaching V1.0!
+
+If you have read my first blog post you might remember that I started out using Astro for this blog at first
+however due to some beta issues with Astro and me wanting to learn more svelte, I remade it in [SvelteKit](https://kit.svelte.dev/).
+
+Now Astro has released their [V1.0](https://astro.build/blog/astro-1/)
+I once again got excited about the project and decided to give it another go!
+
+## So what is Astro?
+
+Many of you might not even have heard about Astro before,
+but I will explain the core concept here.
+
+Astro is a <ToolTip description="Static Site Generator">SSG</ToolTip> that allows you to use
+all the normal frameworks you're used to, such as Svelte, React, Vue, and more.
+
+However, what's special about Astro is that by default it ships your website with
+**zero** javascript. This means for example that if you have a svelte component,
+any smart/interactive functionality will be disabled, Astro renders your component to html
+on the server and then ships that.
+
+For components where you need javascript on the client side, you can enable so for only
+that component. By doing this on a component by component basis we can end up
+with very performant websites.
+
+## Getting started
+
+The [Astro Docs](https://docs.astro.build/en/getting-started) are amazing and will probably
+provide you with a better getting started guide than this article.
+
+I'm instead going to go more into my specific setup and how it works in this article.
+
+## My setup
+

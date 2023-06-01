@@ -21,4 +21,20 @@ const wiki = defineCollection({
     }),
 });
 
-export const collections = { blog, wiki };
+const sites_services = defineCollection({
+    type: 'data',
+    schema: z.object({
+        title: z.object({
+            pre: z.string().optional(),
+            main: z.string().min(1),
+            post: z.string().optional(),
+        }),
+        description: z.string().min(1),
+        link: z.object({
+            href: z.string().url(),
+            newTab: z.boolean().default(true),
+        })
+    }),
+});
+
+export const collections = { blog, wiki, sites_services };

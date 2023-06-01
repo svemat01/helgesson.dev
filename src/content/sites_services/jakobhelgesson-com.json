@@ -1,0 +1,11 @@
+{
+    "title": {
+        "main": "jakobhelgesson",
+        "post": ".com"
+    },
+    "description": "My main portfolio and contact page",
+    "link": {
+        "href": "https://jakobhelgesson.com",
+        "newTab": true
+    }
+}

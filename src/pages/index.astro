@@ -1,9 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
 import Brand from "../components/Brand.astro";
 import Footer from "../components/Footer.astro";
 import Container from "../components/home/Container.astro";
 import Section from "../components/home/Section.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { inspect } from 'util';
+
+const sites_services = await getCollection('sites_services');
+console.log(inspect(sites_services, {depth: 5}));
 ---
 
 <BaseLayout title="Home">
@@ -20,48 +25,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </Section>
 
         <Section title="Sites & Services">
-            <Container
-                main="jakobhelgesson"
-                post=".com"
-                href="https://jakobhelgesson.com"
-            >
-                My main portfolio and contact website
-            </Container>
-            <Container
-                pre="bin."
-                main="helgesson.dev"
-                href="https://bin.helgesson.dev"
-            >
-                Pastebin like service hosted by myself
-            </Container>
-            <Container
-                pre="brand."
-                main="helgesson.dev"
-                href="https://brand.helgesson.dev"
-            >
-                Resources I associate with myself and my brand
-            </Container>
-            <Container
-                main="jakobhelgesson"
-                post=".com"
-                href="https://jakobhelgesson.com"
-            >
-                My main portfolio and contact website
-            </Container>
-            <Container
-                pre="bin."
-                main="helgesson.dev"
-                href="https://bin.helgesson.dev"
-            >
-                Pastebin like service hosted by myself
-            </Container>
-            <Container
-                pre="brand."
-                main="helgesson.dev"
-                href="https://brand.helgesson.dev"
-            >
-                Resources I associate with myself and my brand
-            </Container>
+            {sites_services.map(({data}) => (
+                <Container
+                    pre={data.title.pre}
+                    main={data.title.main}
+                    post={data.title.post}
+                    href={data.link.href}
+                    newTab={data.link.newTab}
+                >
+                    {data.description}
+                </Container>
+            ))}
         </Section>
     </main>
     <Footer />

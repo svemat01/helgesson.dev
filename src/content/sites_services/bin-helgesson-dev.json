@@ -1,0 +1,11 @@
+{
+    "title": {
+        "pre": "bin.",
+        "main": "helgesson.dev"
+    },
+    "description": "Pastebin like service hosted by myself",
+    "link": {
+        "href": "https://bin.helgesson.dev",
+        "newTab": true
+    }
+}

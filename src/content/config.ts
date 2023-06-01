@@ -14,4 +14,11 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const wiki = defineCollection({
+    schema: z.object({
+        title: z.string().min(1),
+        description: z.string().min(1),
+    }),
+});
+
+export const collections = { blog, wiki };

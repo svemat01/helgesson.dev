@@ -4,11 +4,11 @@ import path from 'node:path'
 
 export function remarkReadingTime(options) {
     return function (tree, file) {
-        const dir = path.relative(file.cwd, file.dirname);
+        // const dir = path.relative(file.cwd, file.dirname);
 
-        if (typeof options === 'string' && dir !== options) return;
+        // if (typeof options === 'string' && dir !== options) return;
 
-        if (Array.isArray(options) && !options.includes(dir)) return;
+        // if (Array.isArray(options) && !options.includes(dir)) return;
 
         const textOnPage = toString(tree);
         const readingTime = getReadingTime(textOnPage);

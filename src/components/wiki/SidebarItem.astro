@@ -1,0 +1,39 @@
+---
+import type { TreeNode } from "../../utils/buildTree.js";
+
+interface Props {
+    item: TreeNode;
+}
+
+const { item } = Astro.props;
+---
+
+<li>
+    <a href={`/wiki/${item.slug}`}>{item.label}</a>
+    {item.children && (
+        <ul>
+            {item.children.map((subItem) => (
+                <Astro.self
+                    item={subItem}
+                />
+            ))}
+        </ul>
+    )}
+</li>
+
+<style lang="scss">
+    li {
+        padding-block: 0.25rem;
+    }
+    ul {
+        padding-left: 1ch;
+        padding-block: 0.5rem;
+        margin-top: 0.25rem;
+        margin-left: 2px;
+        border-left: 2px solid $gray-800;
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+</style>

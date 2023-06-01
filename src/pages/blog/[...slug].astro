@@ -20,8 +20,7 @@ type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 
-const { Content, headings } = await post.render();
-// console.log({headings});
+const { Content } = await post.render();
 
 const formattedDate = readableDate(post.data.date);
 ---

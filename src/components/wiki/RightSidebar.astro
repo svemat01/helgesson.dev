@@ -1,0 +1,27 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+type Props = {
+	headings: MarkdownHeading[];
+};
+
+const { headings } = Astro.props;
+---
+
+<nav class="sidebar-nav" aria-labelledby="grid-right">
+
+    <h2 id="grid-right" class="visually-hidden">Table of Contents</h2>
+
+    <ul class="sidebar-nav__list">
+        <!-- {#each headings as heading}
+            <li class="sidebar-nav__item">
+                <a class="sidebar-nav__link" href={`#${heading.id}`}>{heading.text}</a>
+            </li>
+        {/each} -->
+        {headings.map((heading) => (
+            <li class="sidebar-nav__item">
+                <a class="sidebar-nav__link" href={`#${heading.slug}`}>{heading.text}</a>
+            </li>
+        ))}
+    </ul>
+</nav>

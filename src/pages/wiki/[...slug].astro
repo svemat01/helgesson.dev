@@ -1,0 +1,33 @@
+---
+import "../../styles/wiki-post.scss";
+import { CollectionEntry, getCollection } from "astro:content";
+import WikiLayout from "../../layouts/WikiLayout.astro";
+
+export async function getStaticPaths() {
+    let posts = await getCollection("wiki");
+
+    return posts.map((post) => {
+        const slugParts = post.slug.split("/");
+        const isIndex =
+            slugParts[slugParts.length - 1] === slugParts[slugParts.length - 2];
+        const slug = isIndex ? slugParts.slice(0, -1).join("/") : post.slug;
+
+        return {
+            params: { slug },
+            props: post,
+        };
+    });
+}
+type Props = CollectionEntry<"wiki">;
+
+const post = Astro.props;
+const { Content, headings } = await post.render();
+---
+
+<WikiLayout
+    title={post.data.title}
+    description={post.data.description}
+    headings={headings}
+>
+    <Content />
+</WikiLayout>

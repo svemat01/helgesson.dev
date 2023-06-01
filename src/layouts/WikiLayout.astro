@@ -1,0 +1,94 @@
+---
+import type { MarkdownHeading } from 'astro';
+import Footer from "../components/Footer.astro";
+import LeftSidebar from '../components/wiki/LeftSidebar.astro';
+import RightSidebar from '../components/wiki/RightSidebar.astro';
+import BaseLayout from "./BaseLayout.astro";
+
+export interface Props {
+    title: string;
+    description?: string;
+    headings: MarkdownHeading[];
+}
+const { title, description, headings } = Astro.props as Props;
+---
+
+<BaseLayout title={title} description={description}>
+    <header>
+        <h1>
+            <a href="/">helgesson.dev</a><a href="/wiki"><span>/wiki</span></a>
+        </h1>
+    </header>
+    <main>
+        <aside class="left">
+            <LeftSidebar />
+        </aside>
+        <article>
+            <h1>{title}</h1>
+            <slot />
+        </article>
+        <aside class="right">
+            <RightSidebar headings={headings} />
+        </aside>
+    </main>
+    <Footer />
+</BaseLayout>
+
+<style lang="scss">
+    header {
+        width: 100%;
+        max-width: min(143rem, calc(100% - 4rem));
+        margin-inline: auto;
+        padding-top: 4rem;
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            // text-align: center;
+
+            span {
+                color: $green;
+            }
+
+            a {
+                display: inline-block;
+                transition: all 0.2s ease-in-out;
+
+                &:hover:nth-child(1) {
+                    transform: scale(1.1);
+                    transform-origin: right;
+                }
+
+                &:hover:nth-child(2) {
+                    transform: scale(1.1);
+                    transform-origin: left;
+                }
+            }
+
+            @media (max-width: 600px) {
+                font-size: 3.2rem;
+            }
+        }
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: 26rem minmax(0, 85rem) 24rem;
+        grid-template-rows: 1fr;
+        gap: 4rem;
+
+        max-width: calc(100% - 1rem);
+        margin: 3rem auto 6rem;
+    }
+
+    // .left{
+    //     position: fixed;
+    //     top: 0;
+    //     bottom: 0;
+    //     overflow-y: auto;
+    //     overflow-x: hidden;
+    // }
+
+    // article {
+    //     grid-column: 2;
+    // }
+</style>

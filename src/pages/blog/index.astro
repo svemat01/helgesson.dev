@@ -37,7 +37,7 @@ posts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
     .posts {
         display: grid;
         grid-template-columns: repeat(auto-fit, 400px);
-        grid-template-rows: repeat(auto-fit, 200px);
+        grid-auto-rows: minmax(200px, 1fr);
         grid-gap: 3rem;
         justify-content: center;
     }

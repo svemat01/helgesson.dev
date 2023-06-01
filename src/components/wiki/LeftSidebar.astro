@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import SidebarItem from "./SidebarItem.astro";
+import { buildTree } from '../../utils/buildTree.js';
+import { inspect } from 'util';
+const wiki = await getCollection("wiki");
+// console.log({wiki})
+const tree = buildTree(wiki).filter((post) => post.slug !== 'index');
+console.log(inspect({tree}, {depth: 10}))
+---
+
+<nav>
+    <div class="title">
+        <a href="/wiki">The Knowledge Base</a>
+    </div>
+    <ul>
+        {tree.map((item) => (
+            <SidebarItem item={item} />
+        ))}
+    </ul>
+</nav>
+
+<style lang="scss">
+    nav {
+        font-size: var(--font-text);
+    }
+
+    .title {
+        font-size: 2.3rem;
+        /* font-weight: bold; */
+        margin-bottom: 1rem;
+        border-bottom: 2px solid $gray-800;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+</style>

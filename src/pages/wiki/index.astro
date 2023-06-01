@@ -1,0 +1,17 @@
+---
+import "../../styles/wiki-post.scss";
+import { CollectionEntry, getEntry } from "astro:content";
+import WikiLayout from "../../layouts/WikiLayout.astro";
+type Props = CollectionEntry<"wiki">;
+
+const post = await getEntry("wiki", "index");
+const { Content, headings } = await post.render();
+---
+
+<WikiLayout
+    title={post.data.title}
+    description={post.data.description}
+    headings={headings}
+>
+    <Content />
+</WikiLayout>
